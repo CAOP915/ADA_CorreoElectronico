@@ -127,6 +127,11 @@ public class CorreoElectronico_GUI extends JFrame {
 		contentPane.add(scroll1);
 	
 		JButton btnNewButton_DespacharMensaje = new JButton("Despachar Mensaje Seleccionado");
+		btnNewButton_DespacharMensaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Creación de RAMA_YAZMIN
+			}
+		});
 		btnNewButton_DespacharMensaje.setForeground(Color.WHITE);
 		btnNewButton_DespacharMensaje.setBackground(new Color(0, 0, 205));
 		btnNewButton_DespacharMensaje.setBounds(501, 589, 247, 35);
