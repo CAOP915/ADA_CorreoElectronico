@@ -77,4 +77,14 @@ public class CorreoElectronico implements Comparable<CorreoElectronico>{
 	// Comparara mensajes basadas en el atributo tipoDeMensaje:
         return Integer.compare(this.tipoDeMensaje, otroCorreoEletronico.getTipoDeMensaje());
     }
+	
+	//Mostrar informacion en los JList en la GUI del proyecto CorreoElectronico_ConColaDeMensajes:
+	@Override
+	public String toString() {
+			
+	//Mostrara la siguiente informacion al ver el mensaje en el JList:
+		return this.tipoDeMensaje+ " Asunto: "+ this.asunto + " De: "+ this.emisor+ " Para: "+ this.receptor+ " Mensaje: "+ this.mensaje;
+	}
+				
+	//Fin de la creacion de la clase CorreoElectronico.
 }
