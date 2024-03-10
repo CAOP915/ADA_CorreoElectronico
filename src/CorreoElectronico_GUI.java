@@ -211,7 +211,7 @@ public class CorreoElectronico_GUI extends JFrame {
 		JButton btnNewButton_EnviarMensaje = new JButton("Enviar Mensaje");
 		btnNewButton_EnviarMensaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+			//Creacion de rama de nallely
 				if (rdbtnNewRadioButton_TipoDeMensajePersonal.isSelected()) {
 					int tipoDeMensajeOrden= 1;
 					String tipoDeMensajeSeleccionado = ("Personal");
