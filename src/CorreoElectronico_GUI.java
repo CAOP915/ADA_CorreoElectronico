@@ -31,6 +31,8 @@ import java.awt.event.MouseEvent;
 
 public class CorreoElectronico_GUI extends JFrame {
 
+	//Carlos por favor podrias cambiar el nombre del botón que dice Despachar Mensaje Seleccionado a 
+	//Despachar mensajes, creo que queda mejor ya que se envían todos lo mensajes. 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_Asunto;
