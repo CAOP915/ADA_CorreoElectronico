@@ -26,6 +26,8 @@ import javax.swing.DefaultListModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CorreoElectronico_GUI extends JFrame {
 
@@ -120,6 +122,14 @@ public class CorreoElectronico_GUI extends JFrame {
 		contentPane.add(lblNewLabel_TituloDeServidorDeImpresionDeMensajes);
 		
 		JList list_Despachar = new JList();
+		list_Despachar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//click al mensaje que selecciones y se abre para ver mensaje completo
+				String seleccionado = list_Despachar.getSelectedValue().toString();
+				JOptionPane.showMessageDialog(null, seleccionado);
+			}
+		});
 		
 		//JScrollPane Jlist_Despachar
 		JScrollPane scroll1 = new JScrollPane (list_Despachar, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -139,6 +149,14 @@ public class CorreoElectronico_GUI extends JFrame {
 		contentPane.add(lblNewLabel_TituloMensajesEnviados);
 		
 		JList list_Enviados = new JList();
+		list_Enviados.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//click al mensaje que selecciones y se abre para ver mensaje completo
+				String seleccionado = list_Despachar.getSelectedValue().toString();
+				JOptionPane.showMessageDialog(null, seleccionado);
+			}
+		});
 		
 		//JScrollPane Jlist_Enviados
 		JScrollPane scroll2 = new JScrollPane (list_Enviados, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
