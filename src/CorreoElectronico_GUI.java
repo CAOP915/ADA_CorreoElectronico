@@ -136,6 +136,7 @@ public class CorreoElectronico_GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//Creación de RAMA_YAZMIN
 					
+			
 		int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas despachar todos los elementos?", "Confirmar Despache", JOptionPane.YES_NO_OPTION);
 			if (opcion == JOptionPane.YES_OPTION) { /*Se creo un variable llamada "opcion" para guaradar la respuesta del usuario. 
 				Se pone un JOptionPane con cuadros de diálogo para que el usuario pueda elegir entre dos respuestas concretas,
@@ -184,8 +185,11 @@ public class CorreoElectronico_GUI extends JFrame {
 		
 		JButton btnNewButton_EliminarMensaje = new JButton("Eliminar Mensaje Seleccionado");
 				list_Enviados.addMouseListener(new MouseAdapter() {
+					
+					
 					@Override
 					public void mouseClicked(MouseEvent e) {
+						
 						String seleccionado = list_Enviados.getSelectedValue().toString(); //Se creó la variable "seleccionado" para agarrar los datos almacenados en el Jlist de Enviados.
 						JOptionPane.showMessageDialog(null, seleccionado); //Se escribio un JOPtionPane para seleccionar un mensaje en el jlist.
 						int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el elemento seleccionado?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
@@ -197,7 +201,15 @@ public class CorreoElectronico_GUI extends JFrame {
 						} else {
 						    // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada
 						}
+						int opc = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar todos los elementos?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+						 //Se creo otra variable al JOptionPane para que el usuario tambien pueda eliminar todos los mensajes de una sola vez.
+						if (opc == JOptionPane.YES_OPTION) {//El if es para que el usuario si da como respuesta "si" se limpia todo el contenido que tenga el Jlist.
+						    model2.clear();//Se limpia el contenido del Jlist.
+						} else {
+						    // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada.
+						}
 					}
+					
 		});
 		btnNewButton_EliminarMensaje.setForeground(Color.WHITE);
 		btnNewButton_EliminarMensaje.setBackground(new Color(0, 0, 205));
