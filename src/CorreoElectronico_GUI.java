@@ -26,6 +26,8 @@ import javax.swing.DefaultListModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CorreoElectronico_GUI extends JFrame {
 
@@ -38,7 +40,8 @@ public class CorreoElectronico_GUI extends JFrame {
 
 	Queue<CorreoElectronico> cola =new PriorityQueue<CorreoElectronico>();
 	DefaultListModel model = new DefaultListModel();
-	
+	DefaultListModel model2 = new DefaultListModel();
+	 
 	/**
 	 * Launch the application.
 	 */
@@ -126,10 +129,34 @@ public class CorreoElectronico_GUI extends JFrame {
 		scroll1.setBounds(428, 116, 386, 462);
 		contentPane.add(scroll1);
 	
+		JList list_Enviados = new JList();
+		
 		JButton btnNewButton_DespacharMensaje = new JButton("Despachar Mensaje Seleccionado");
 		btnNewButton_DespacharMensaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Creación de RAMA_YAZMIN
+					
+		int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas despachar todos los elementos?", "Confirmar Despache", JOptionPane.YES_NO_OPTION);
+			if (opcion == JOptionPane.YES_OPTION) { /*Se creo un variable llamada "opcion" para guaradar la respuesta del usuario. 
+				Se pone un JOptionPane con cuadros de diálogo para que el usuario pueda elegir entre dos respuestas concretas,
+				y de acuerdo a lo que escoja se ejecute el if o de lo contrario un else.*/
+					    
+				while (!cola.isEmpty()) {//Se utiliza para saber si la cola esta vacia.
+							 
+				CorreoElectronico a = cola.remove(); /*El código de cola.remove() se utilizo para remover los datos almacenados en los atributos de la clase CorreoElectronico que fueron puestos en el Jlist.*/
+				System.out.println(a.getTipoDeMensaje() + " " + a.getAsunto()+ " " + a.getEmisor()      + " " + a.getReceptor()+ " " + a.getMensaje()); /*Se manda un System.out.println para imprimir los datos, 
+				y se utilizo .get para obtener los datos que había puesto el usuario.
+				devolver la información guardada.*/
+					
+			    model2.addElement(a); // Se declaró un DefaultListModel como "model2" al inicio del JFrame. El addElement se utilizo para que se añada un evento de datos en un paquete determinado en el mismo bote.
+				list_Enviados.setModel(model2);//En este código el setModel le asigna un valor al Jlist a través de los atributos proporcionados.
+			    model.clear(); //Se utilizo para limpiar el Jlist de la información almacenada en las colas.
+				model.removeAllElements();	//En esta linea el removeAllElements se utilizo para remover o quitar la información almacenada en pila.		
+				}
+					
+			} else {
+					    // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada.
+				}
 			}
 		});
 		btnNewButton_DespacharMensaje.setForeground(Color.WHITE);
@@ -143,7 +170,12 @@ public class CorreoElectronico_GUI extends JFrame {
 		lblNewLabel_TituloMensajesEnviados.setBounds(1013, 68, 166, 35);
 		contentPane.add(lblNewLabel_TituloMensajesEnviados);
 		
-		JList list_Enviados = new JList();
+		
+		list_Enviados.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
 		
 		//JScrollPane Jlist_Enviados
 		JScrollPane scroll2 = new JScrollPane (list_Enviados, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -152,6 +184,15 @@ public class CorreoElectronico_GUI extends JFrame {
 		
 		
 		JButton btnNewButton_EliminarMensaje = new JButton("Eliminar Mensaje Seleccionado");
+		btnNewButton_EliminarMensaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*i--;
+				 String seleccionado = list_Enviados.getSelectedValue().toString();
+				JOptionPane.showMessageDialog(null, seleccionado);
+				model2.removeAllElements();*/
+				model2.remove(list_Enviados.getSelectedIndex());
+			}
+		});
 		btnNewButton_EliminarMensaje.setForeground(Color.WHITE);
 		btnNewButton_EliminarMensaje.setBackground(new Color(0, 0, 205));
 		btnNewButton_EliminarMensaje.setBounds(980, 592, 226, 35);
