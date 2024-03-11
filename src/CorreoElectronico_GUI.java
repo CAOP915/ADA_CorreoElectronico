@@ -212,22 +212,45 @@ public class CorreoElectronico_GUI extends JFrame {
 		btnNewButton_EnviarMensaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			//Creacion de rama de nallely
+				
+				String Emisor = textField_Emisor.getText();
+				String Receptor = textField_Receptor.getText();
+				String Asunto = textField_Asunto.getText();
+				String Mensaje = textArea_EscribirMensaje.getText();
+				
+				
 				if (rdbtnNewRadioButton_TipoDeMensajePersonal.isSelected()) {
 					int tipoDeMensajeOrden= 1;
 					String tipoDeMensajeSeleccionado = ("Personal");
+					
+					cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
+					model.clear(); // se limpia el modelo de lista
+					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
+					list_Despachar.setModel(model);//lo mando a la otra pantalla
 				}
-				
+			
 				if (rdbtnNewRadioButton_TipoDeMensajeTrabajo.isSelected()) {
 					int tipoDeMensajeOrden= 2;
 					String tipoDeMensajeSeleccionado = ("Trabajo");	
+					
+					cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
+					model.clear(); // se limpia el modelo de lista
+					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
+					list_Despachar.setModel(model);//lo mando al otra pantalla
+					
 				}
 				
 				if (rdbtnNewRadioButton_TipoDeMensajeOtroTipo.isSelected()) {
 					int tipoDeMensajeOrden= 3;
 					String tipoDeMensajeSeleccionado = ("Otro Tipo");
+					
+					cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
+					model.clear(); // se limpia el modelo de lista
+					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
+					list_Despachar.setModel(model);
 				}	
-			}
-		});
+				
+			}});
 		
 		JLabel lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1 = new JLabel("(Ver Informacion Del Mensaje Al Seleccionarlo)");
 		lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1.setForeground(Color.WHITE);
