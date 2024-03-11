@@ -238,6 +238,10 @@ public class CorreoElectronico_GUI extends JFrame {
 				String Asunto = textField_Asunto.getText();
 				String Mensaje = textArea_EscribirMensaje.getText();
 				
+				int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas enviar el mensaje?", "Confirma enviar mensaje", JOptionPane.YES_NO_OPTION);
+
+				if (opcion == JOptionPane.YES_OPTION) {
+					
 				
 				if (rdbtnNewRadioButton_TipoDeMensajePersonal.isSelected()) {
 					int tipoDeMensajeOrden= 1;
@@ -268,7 +272,13 @@ public class CorreoElectronico_GUI extends JFrame {
 					model.clear(); // se limpia el modelo de lista
 					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
 					list_Despachar.setModel(model);
-				}	
+				}
+			
+				
+			    } else {
+					//se presiona la opcion "NO".
+				}
+		
 				
 			}});
 		
