@@ -39,6 +39,8 @@ public class CorreoElectronico_GUI extends JFrame {
 	Queue<CorreoElectronico> cola =new PriorityQueue<CorreoElectronico>();
 	DefaultListModel model = new DefaultListModel();
 	
+	
+	
 	/**
 	 * Launch the application.
 	 */
