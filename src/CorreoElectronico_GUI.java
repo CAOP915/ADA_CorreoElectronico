@@ -31,6 +31,8 @@ import java.awt.event.MouseEvent;
 
 public class CorreoElectronico_GUI extends JFrame {
 
+	//Carlos por favor podrias cambiar el nombre del botón que dice Despachar Mensaje Seleccionado a 
+	//Despachar mensajes, creo que queda mejor ya que se envían todos lo mensajes. 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_Asunto;
@@ -38,10 +40,18 @@ public class CorreoElectronico_GUI extends JFrame {
 	private JTextField textField_Receptor;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
+//<<<<<<< RAMA_YAZMIN
 	Queue<CorreoElectronico> cola =new PriorityQueue<CorreoElectronico>();//Cola sobre el CorreoElectronico.
 	DefaultListModel model = new DefaultListModel();//Es un modelo de lista, que puede usarse para administrar los elementos mostrados por un control JList.
 	DefaultListModel model2 = new DefaultListModel();//Es un segundo modelo de lista que se encarga del segundo Jlist.
 
+//=======
+	Queue<CorreoElectronico> cola =new PriorityQueue<CorreoElectronico>();
+	DefaultListModel model = new DefaultListModel();
+	
+	
+	
+//>>>>>>> master
 	/**
 	 * Launch the application.
 	 */
@@ -123,12 +133,21 @@ public class CorreoElectronico_GUI extends JFrame {
 		contentPane.add(lblNewLabel_TituloDeServidorDeImpresionDeMensajes);
 		
 		JList list_Despachar = new JList();
+		list_Despachar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//click al mensaje que selecciones y se abre para ver mensaje completo
+				String seleccionado = list_Despachar.getSelectedValue().toString();
+				JOptionPane.showMessageDialog(null, seleccionado);
+			}
+		});
 		
 		//JScrollPane Jlist_Despachar
 		JScrollPane scroll1 = new JScrollPane (list_Despachar, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll1.setBounds(428, 116, 386, 462);
 		contentPane.add(scroll1);
 	
+//<<<<<<< RAMA_YAZMIN
 		JList list_Enviados = new JList();
 		
 		JButton btnNewButton_DespacharMensaje = new JButton("Despachar Mensaje Seleccionado");
@@ -158,6 +177,16 @@ public class CorreoElectronico_GUI extends JFrame {
 					    // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada.
 				}
 			btnNewButton_DespacharMensaje.setEnabled(false); //Desactivar el boton de btnNewButton_DespacharMensaje.
+//=======
+		JButton btnNewButton_DespacharMensaje = new JButton("Despachar Mensaje");
+		btnNewButton_DespacharMensaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		//Si es NO, se�alar lo siguiente: 
+		JOptionPane.showMessageDialog(null, "Usted ha elegido la opci�n que No");
+				
+			
+			
+//>>>>>>> master
 			}
 		});
 		btnNewButton_DespacharMensaje.setForeground(Color.WHITE);
@@ -171,10 +200,20 @@ public class CorreoElectronico_GUI extends JFrame {
 		lblNewLabel_TituloMensajesEnviados.setBounds(1013, 68, 166, 35);
 		contentPane.add(lblNewLabel_TituloMensajesEnviados);
 		
+//<<<<<<< RAMA_YAZMIN
 		
 		list_Enviados.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+//=======
+		JList list_Enviados = new JList();
+		list_Enviados.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//click al mensaje que selecciones y se abre para ver mensaje completo
+				String seleccionado = list_Despachar.getSelectedValue().toString();
+				JOptionPane.showMessageDialog(null, seleccionado);
+//>>>>>>> master
 			}
 		});
 		
@@ -184,6 +223,7 @@ public class CorreoElectronico_GUI extends JFrame {
 		contentPane.add(scroll2);
 		
 		
+//<<<<<<< RAMA_YAZMIN
 		JButton btnNewButton_EliminarMensaje = new JButton("Eliminar Mensaje Seleccionado");
 				list_Enviados.addMouseListener(new MouseAdapter() {
 					
@@ -211,6 +251,14 @@ public class CorreoElectronico_GUI extends JFrame {
 						}
 					}
 					
+//=======
+		JButton btnNewButton_EliminarMensaje = new JButton("Eliminar Mensajes");
+		btnNewButton_EliminarMensaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Si es NO, se�alar lo siguiente: 
+				JOptionPane.showMessageDialog(null, "Usted ha elegido la opci�n que No");
+			}
+//>>>>>>> master
 		});
 		btnNewButton_EliminarMensaje.setForeground(Color.WHITE);
 		btnNewButton_EliminarMensaje.setBackground(new Color(0, 0, 205));
@@ -276,23 +324,61 @@ public class CorreoElectronico_GUI extends JFrame {
 		JButton btnNewButton_EnviarMensaje = new JButton("Enviar Mensaje");
 		btnNewButton_EnviarMensaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+//<<<<<<< RAMA_CARLOS
+				//Si es NO, se�alar lo siguiente: 
+				JOptionPane.showMessageDialog(null, "Usted ha elegido la opci�n que No");
+//=======
+			//Creacion de rama de nallely
+				
+				String Emisor = textField_Emisor.getText();
+				String Receptor = textField_Receptor.getText();
+				String Asunto = textField_Asunto.getText();
+				String Mensaje = textArea_EscribirMensaje.getText();
+				
+				int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas enviar el mensaje?", "Confirma enviar mensaje", JOptionPane.YES_NO_OPTION);
+
+				if (opcion == JOptionPane.YES_OPTION) {
+					
+				
+//>>>>>>> master
 				if (rdbtnNewRadioButton_TipoDeMensajePersonal.isSelected()) {
 					int tipoDeMensajeOrden= 1;
 					String tipoDeMensajeSeleccionado = ("Personal");
+					
+					cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
+					model.clear(); // se limpia el modelo de lista
+					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
+					list_Despachar.setModel(model);//lo mando a la otra pantalla
 				}
-				
+			
 				if (rdbtnNewRadioButton_TipoDeMensajeTrabajo.isSelected()) {
 					int tipoDeMensajeOrden= 2;
 					String tipoDeMensajeSeleccionado = ("Trabajo");	
+					
+					cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
+					model.clear(); // se limpia el modelo de lista
+					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
+					list_Despachar.setModel(model);//lo mando al otra pantalla
+					
 				}
 				
 				if (rdbtnNewRadioButton_TipoDeMensajeOtroTipo.isSelected()) {
 					int tipoDeMensajeOrden= 3;
 					String tipoDeMensajeSeleccionado = ("Otro Tipo");
-				}	
-			}
-		});
+					
+					cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
+					model.clear(); // se limpia el modelo de lista
+					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
+					list_Despachar.setModel(model);
+				}
+			
+				
+			    } else {
+					//se presiona la opcion "NO".
+				}
+		
+				
+			}});
 		
 		JLabel lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1 = new JLabel("(Ver Informacion Del Mensaje Al Seleccionarlo)");
 		lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1.setForeground(Color.WHITE);
@@ -300,7 +386,7 @@ public class CorreoElectronico_GUI extends JFrame {
 		lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1.setBounds(489, 80, 285, 54);
 		contentPane.add(lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1);
 		
-		JLabel lblNewLabel_TituloMensajesEnviados_1 = new JLabel("(Ver Informacion Del Mensaje Al Seleccionarlo)");
+		JLabel lblNewLabel_TituloMensajesEnviados_1 = new JLabel("(Ver Informacion Del Mensaje Al Seleccionarlo Y/O Eliminarlo)");
 		lblNewLabel_TituloMensajesEnviados_1.setForeground(Color.WHITE);
 		lblNewLabel_TituloMensajesEnviados_1.setFont(new Font("Trebuchet MS", Font.PLAIN, 12));
 		lblNewLabel_TituloMensajesEnviados_1.setBounds(957, 80, 285, 54);
