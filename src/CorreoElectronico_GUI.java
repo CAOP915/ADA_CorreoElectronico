@@ -40,11 +40,18 @@ public class CorreoElectronico_GUI extends JFrame {
 	private JTextField textField_Receptor;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
+//<<<<<<< RAMA_YAZMIN
+	Queue<CorreoElectronico> cola =new PriorityQueue<CorreoElectronico>();//Cola sobre el CorreoElectronico.
+	DefaultListModel model = new DefaultListModel();//Es un modelo de lista, que puede usarse para administrar los elementos mostrados por un control JList.
+	DefaultListModel model2 = new DefaultListModel();//Es un segundo modelo de lista que se encarga del segundo Jlist.
+
+//=======
 	Queue<CorreoElectronico> cola =new PriorityQueue<CorreoElectronico>();
 	DefaultListModel model = new DefaultListModel();
 	
 	
 	
+//>>>>>>> master
 	/**
 	 * Launch the application.
 	 */
@@ -140,6 +147,37 @@ public class CorreoElectronico_GUI extends JFrame {
 		scroll1.setBounds(428, 116, 386, 462);
 		contentPane.add(scroll1);
 	
+//<<<<<<< RAMA_YAZMIN
+		JList list_Enviados = new JList();
+		
+		JButton btnNewButton_DespacharMensaje = new JButton("Despachar Mensaje Seleccionado");
+		btnNewButton_DespacharMensaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Creación de RAMA_YAZMIN
+					
+			
+		int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas despachar todos los elementos?", "Confirmar Despache", JOptionPane.YES_NO_OPTION);
+			if (opcion == JOptionPane.YES_OPTION) { /*Se creo un variable llamada "opcion" para guaradar la respuesta del usuario. 
+				Se pone un JOptionPane con cuadros de diálogo para que el usuario pueda elegir entre dos respuestas concretas,
+				y de acuerdo a lo que escoja se ejecute el "if" o de lo contrario un "else".*/
+					    
+				while (!cola.isEmpty()) {//Se utiliza para saber si la cola esta vacia.
+							 
+				CorreoElectronico a = cola.remove(); /*El código de cola.remove() se utilizó para remover los datos almacenados en los atributos de la clase CorreoElectronico que fueron puestos en el Jlist.*/
+				System.out.println(a.getTipoDeMensaje() + " " + a.getAsunto()+ " " + a.getEmisor()      + " " + a.getReceptor()+ " " + a.getMensaje()); /*Se manda un System.out.println para imprimir los datos, 
+				y se utilizó ".get" que devuelve los datos que había puesto el usuario*/
+					
+			    model2.addElement(a); // Se declaró un DefaultListModel como "model2" al inicio del JFrame. El addElement se utilizó para que se añada un evento de datos en un paquete determinado en el mismo bote.
+				list_Enviados.setModel(model2);//En este código el setModel le asigna un valor al Jlist a través de los atributos proporcionados.
+			    model.clear(); //Se utilizo para limpiar la pantalla del Jlist de la información almacenada en las colas.
+				model.removeAllElements();	//En esta línea el "removeAllElements" se utilizó para remover o quitar la información almacenada en pila.		
+				}
+					
+			} else {
+					    // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada.
+				}
+			btnNewButton_DespacharMensaje.setEnabled(false); //Desactivar el boton de btnNewButton_DespacharMensaje.
+//=======
 		JButton btnNewButton_DespacharMensaje = new JButton("Despachar Mensaje");
 		btnNewButton_DespacharMensaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -148,6 +186,7 @@ public class CorreoElectronico_GUI extends JFrame {
 				
 			
 			
+//>>>>>>> master
 			}
 		});
 		btnNewButton_DespacharMensaje.setForeground(Color.WHITE);
@@ -161,6 +200,12 @@ public class CorreoElectronico_GUI extends JFrame {
 		lblNewLabel_TituloMensajesEnviados.setBounds(1013, 68, 166, 35);
 		contentPane.add(lblNewLabel_TituloMensajesEnviados);
 		
+//<<<<<<< RAMA_YAZMIN
+		
+		list_Enviados.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+//=======
 		JList list_Enviados = new JList();
 		list_Enviados.addMouseListener(new MouseAdapter() {
 			@Override
@@ -168,6 +213,7 @@ public class CorreoElectronico_GUI extends JFrame {
 				//click al mensaje que selecciones y se abre para ver mensaje completo
 				String seleccionado = list_Despachar.getSelectedValue().toString();
 				JOptionPane.showMessageDialog(null, seleccionado);
+//>>>>>>> master
 			}
 		});
 		
@@ -177,12 +223,42 @@ public class CorreoElectronico_GUI extends JFrame {
 		contentPane.add(scroll2);
 		
 		
+//<<<<<<< RAMA_YAZMIN
+		JButton btnNewButton_EliminarMensaje = new JButton("Eliminar Mensaje Seleccionado");
+				list_Enviados.addMouseListener(new MouseAdapter() {
+					
+					
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+						String seleccionado = list_Enviados.getSelectedValue().toString(); //Se creó la variable "seleccionado" para agarrar los datos almacenados en el Jlist de Enviados.
+						JOptionPane.showMessageDialog(null, seleccionado); //Se escribio un JOPtionPane para seleccionar un mensaje en el jlist.
+						int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el elemento seleccionado?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+		                // Se creó otra variable con el motivo de preguntarle al usuario si esta seguro de eliminar el mensaje.
+						if (opcion == JOptionPane.YES_OPTION) {//Se utilizó un "if" para los usuarios que dicen "si" podrán eliminar sus mensajes uno por uno.
+						  
+							model2.remove(list_Enviados.getSelectedIndex());//Este código permite quitar o remover del Jlist los datos obtenidos anteriormente.
+						
+						} else {
+						    // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada
+						}
+						int opc = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar todos los elementos?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+						 //Se creo otra variable al JOptionPane para que el usuario tambien pueda eliminar todos los mensajes de una sola vez.
+						if (opc == JOptionPane.YES_OPTION) {//El if es para que el usuario si da como respuesta "si" se limpia todo el contenido que tenga el Jlist.
+						    model2.clear();//Se limpia el contenido del Jlist.
+						} else {
+						    // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada.
+						}
+					}
+					
+//=======
 		JButton btnNewButton_EliminarMensaje = new JButton("Eliminar Mensajes");
 		btnNewButton_EliminarMensaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Si es NO, se�alar lo siguiente: 
 				JOptionPane.showMessageDialog(null, "Usted ha elegido la opci�n que No");
 			}
+//>>>>>>> master
 		});
 		btnNewButton_EliminarMensaje.setForeground(Color.WHITE);
 		btnNewButton_EliminarMensaje.setBackground(new Color(0, 0, 205));
