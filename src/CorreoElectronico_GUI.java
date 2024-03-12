@@ -31,8 +31,6 @@ import java.awt.event.MouseEvent;
 
 public class CorreoElectronico_GUI extends JFrame {
 
-	//Carlos por favor podrias cambiar el nombre del botón que dice Despachar Mensaje Seleccionado a 
-	//Despachar mensajes, creo que queda mejor ya que se envían todos lo mensajes. 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_Asunto;
@@ -40,9 +38,9 @@ public class CorreoElectronico_GUI extends JFrame {
 	private JTextField textField_Receptor;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
-	Queue<CorreoElectronico> cola =new PriorityQueue<CorreoElectronico>();//Cola sobre el CorreoElectronico.
-	DefaultListModel model = new DefaultListModel();//Es un modelo de lista, que puede usarse para administrar los elementos mostrados por un control JList.
-	DefaultListModel model2 = new DefaultListModel();//Es un segundo modelo de lista que se encarga del segundo Jlist.
+	Queue<CorreoElectronico> cola =new PriorityQueue<CorreoElectronico>();
+	DefaultListModel model = new DefaultListModel();
+	DefaultListModel model2 = new DefaultListModel();
 	
 	/**
 	 * Launch the application.
@@ -59,7 +57,7 @@ public class CorreoElectronico_GUI extends JFrame {
 			}
 		});
 	}
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -128,7 +126,6 @@ public class CorreoElectronico_GUI extends JFrame {
 		list_Despachar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//click al mensaje que selecciones y se abre para ver mensaje completo
 				String seleccionado = list_Despachar.getSelectedValue().toString();
 				JOptionPane.showMessageDialog(null, seleccionado);
 			}
@@ -140,37 +137,58 @@ public class CorreoElectronico_GUI extends JFrame {
 		contentPane.add(scroll1);
 	
 		JList list_Enviados = new JList();
+		list_Enviados.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String seleccionado = list_Enviados.getSelectedValue().toString();
+				JOptionPane.showMessageDialog(null, seleccionado);
+				int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el elemento seleccionado?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+
+				if (opcion == JOptionPane.YES_OPTION) {
+				  
+					model2.remove(list_Enviados.getSelectedIndex());
+				
+				} else {
+				    // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada
+				
+					//Si es NO, senalar lo siguiente: 
+					JOptionPane.showMessageDialog(null, "Usted ha elegido la opción que No");
+
+				}
+			}
+		});
+	
 		
 		JButton btnNewButton_DespacharMensaje = new JButton("Despachar Mensajes");
 		btnNewButton_DespacharMensaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Creación de RAMA_YAZMIN
-					
-		int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas despachar todos los elementos?", "Confirmar Despache", JOptionPane.YES_NO_OPTION);
-			if (opcion == JOptionPane.YES_OPTION) { /*Se creo un variable llamada "opcion" para guaradar la respuesta del usuario. 
-				Se pone un JOptionPane con cuadros de diálogo para que el usuario pueda elegir entre dos respuestas concretas,
-				y de acuerdo a lo que escoja se ejecute el "if" o de lo contrario un "else".*/
-					    
-				while (!cola.isEmpty()) {//Se utiliza para saber si la cola esta vacia.
-							 
-				CorreoElectronico a = cola.remove(); /*El código de cola.remove() se utilizó para remover los datos almacenados en los atributos de la clase CorreoElectronico que fueron puestos en el Jlist.*/
-				System.out.println(a.getTipoDeMensaje() + " " + a.getAsunto()+ " " + a.getEmisor()      + " " + a.getReceptor()+ " " + a.getMensaje()); /*Se manda un System.out.println para imprimir los datos, 
-				y se utilizó ".get" que devuelve los datos que había puesto el usuario*/
-					
-			    model2.addElement(a); // Se declaró un DefaultListModel como "model2" al inicio del JFrame. El addElement se utilizó para que se añada un evento de datos en un paquete determinado en el mismo bote.
-				list_Enviados.setModel(model2);//En este código el setModel le asigna un valor al Jlist a través de los atributos proporcionados.
-			    model.clear(); //Se utilizo para limpiar la pantalla del Jlist de la información almacenada en las colas.
-				model.removeAllElements();	//En esta línea el "removeAllElements" se utilizó para remover o quitar la información almacenada en pila.		
-				}
-					
-			} else {
-					    // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada.
-			  
-				JOptionPane.showMessageDialog(null, "Usted ha elegido la opci�n que No");
-			}
-		}
-		});
+				
+				int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas despachar todos los elementos?", "Confirmar Despache", JOptionPane.YES_NO_OPTION);
 
+				if (opcion == JOptionPane.YES_OPTION) {
+				    
+					
+					while (!cola.isEmpty()) {
+						 
+						CorreoElectronico a = cola.remove();
+	 
+					//	System.out.println(a.getTipoDeMensaje() + " " + a.getAsunto()+ " " + a.getEmisor()      + " " + a.getReceptor()+ " " + a.getMensaje());
+						
+						 model2.addElement(a);
+						 list_Enviados.setModel(model2);
+						 model.clear();
+						 model.removeAllElements();			
+						}
+				
+				} else {
+				    // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada
+				
+					//Si es NO, senalar lo siguiente: 
+					JOptionPane.showMessageDialog(null, "Usted ha elegido la opcion que No");
+
+				}
+			}
+		});
 		btnNewButton_DespacharMensaje.setForeground(Color.WHITE);
 		btnNewButton_DespacharMensaje.setBackground(new Color(0, 0, 205));
 		btnNewButton_DespacharMensaje.setBounds(501, 589, 247, 35);
@@ -182,53 +200,26 @@ public class CorreoElectronico_GUI extends JFrame {
 		lblNewLabel_TituloMensajesEnviados.setBounds(1013, 68, 166, 35);
 		contentPane.add(lblNewLabel_TituloMensajesEnviados);
 		
-		list_Enviados.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-		JList list_Enviados = new JList();
-		list_Enviados.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				//click al mensaje que selecciones y se abre para ver mensaje completo
-				String seleccionado = list_Despachar.getSelectedValue().toString();
-				JOptionPane.showMessageDialog(null, seleccionado);
-			}
-		});
-		
 		//JScrollPane Jlist_Enviados
 		JScrollPane scroll2 = new JScrollPane (list_Enviados, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll2.setBounds(885, 116, 386, 462);
 		contentPane.add(scroll2);
 		
+		
 		JButton btnNewButton_EliminarMensaje = new JButton("Eliminar Mensajes");
-				list_Enviados.addMouseListener(new MouseAdapter() {
-					
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						
-			String seleccionado = list_Enviados.getSelectedValue().toString(); //Se creó la variable "seleccionado" para agarrar los datos almacenados en el Jlist de Enviados.
-			JOptionPane.showMessageDialog(null, seleccionado); //Se escribio un JOPtionPane para seleccionar un mensaje en el jlist.
-			int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el elemento seleccionado?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-		        // Se creó otra variable con el motivo de preguntarle al usuario si esta seguro de eliminar el mensaje.
-						if (opcion == JOptionPane.YES_OPTION) {//Se utilizó un "if" para los usuarios que dicen "si" podrán eliminar sus mensajes uno por uno.
-						  
-					model2.remove(list_Enviados.getSelectedIndex());//Este código permite quitar o remover del Jlist los datos obtenidos anteriormente.
-						
-					} else {
-					// Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada
-					}
-					int opc = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar todos los elementos?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-					//Se creo otra variable al JOptionPane para que el usuario tambien pueda eliminar todos los mensajes de una sola vez.
-						if (opc == JOptionPane.YES_OPTION) {//El if es para que el usuario si da como respuesta "si" se limpia todo el contenido que tenga el Jlist.
-						    model2.clear();//Se limpia el contenido del Jlist.
-					} else {
-						    // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada.
-						JOptionPane.showMessageDialog(null, "Usted ha elegido la opci�n que No");
+		btnNewButton_EliminarMensaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				
-						}
-					}
-					
+				int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar todos los elementos?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+
+				if (opcion == JOptionPane.YES_OPTION) {
+				    model2.clear();
+				} else {
+					//Si es NO, senalar lo siguiente: 
+					JOptionPane.showMessageDialog(null, "Usted ha elegido la opcion que No");				
+				}
+				
+                }
 		});
 		btnNewButton_EliminarMensaje.setForeground(Color.WHITE);
 		btnNewButton_EliminarMensaje.setBackground(new Color(0, 0, 205));
@@ -294,58 +285,56 @@ public class CorreoElectronico_GUI extends JFrame {
 		JButton btnNewButton_EnviarMensaje = new JButton("Enviar Mensaje");
 		btnNewButton_EnviarMensaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-			//Creacion de rama de nallely
-				
+		
 				String Emisor = textField_Emisor.getText();
 				String Receptor = textField_Receptor.getText();
 				String Asunto = textField_Asunto.getText();
 				String Mensaje = textArea_EscribirMensaje.getText();
 				
+				
 				int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas enviar el mensaje?", "Confirma enviar mensaje", JOptionPane.YES_NO_OPTION);
 
 				if (opcion == JOptionPane.YES_OPTION) {
-					
+				    
+					if (rdbtnNewRadioButton_TipoDeMensajePersonal.isSelected()) {
+						int tipoDeMensajeOrden= 1;
+						String tipoDeMensajeSeleccionado = ("Personal");
+						//
+						cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
+						model.clear(); // se limpia el modelo de lista
+						cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
+						list_Despachar.setModel(model);//lo mando a la otra pantalla
+					}
 				
-				if (rdbtnNewRadioButton_TipoDeMensajePersonal.isSelected()) {
-					int tipoDeMensajeOrden= 1;
-					String tipoDeMensajeSeleccionado = ("Personal");
+					if (rdbtnNewRadioButton_TipoDeMensajeTrabajo.isSelected()) {
+						int tipoDeMensajeOrden= 2;
+						String tipoDeMensajeSeleccionado = ("Trabajo");	
+						
+						cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
+						model.clear(); // se limpia el modelo de lista
+						cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
+						list_Despachar.setModel(model);//lo mando al otra pantalla
+						
+					}
 					
-					cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
-					model.clear(); // se limpia el modelo de lista
-					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
-					list_Despachar.setModel(model);//lo mando a la otra pantalla
+					if (rdbtnNewRadioButton_TipoDeMensajeOtroTipo.isSelected()) {
+						int tipoDeMensajeOrden= 3;
+						String tipoDeMensajeSeleccionado = ("Otro Tipo");
+						
+						cola.add(new CorreoElectronico (Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
+						model.clear(); // se limpia el modelo de lista
+						cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
+						list_Despachar.setModel(model);		
+					
+					}		
+					
+				} else {
+					//Si es NO, senalar lo siguiente: 
+					JOptionPane.showMessageDialog(null, "Usted ha elegido la opcion que No");
 				}
 			
-				if (rdbtnNewRadioButton_TipoDeMensajeTrabajo.isSelected()) {
-					int tipoDeMensajeOrden= 2;
-					String tipoDeMensajeSeleccionado = ("Trabajo");	
-					
-					cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
-					model.clear(); // se limpia el modelo de lista
-					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
-					list_Despachar.setModel(model);//lo mando al otra pantalla
-					
-				}
-				
-				if (rdbtnNewRadioButton_TipoDeMensajeOtroTipo.isSelected()) {
-					int tipoDeMensajeOrden= 3;
-					String tipoDeMensajeSeleccionado = ("Otro Tipo");
-					
-					cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
-					model.clear(); // se limpia el modelo de lista
-					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
-					list_Despachar.setModel(model);
-				}
-			
-				
-			    } else {
-					//se presiona la opcion "NO".
-				
-				 // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada.
-						JOptionPane.showMessageDialog(null, "Usted ha elegido la opci�n que No");
-				}
-			}});
+			}
+		});
 		
 		JLabel lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1 = new JLabel("(Ver Informacion Del Mensaje Al Seleccionarlo)");
 		lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1.setForeground(Color.WHITE);
@@ -353,7 +342,7 @@ public class CorreoElectronico_GUI extends JFrame {
 		lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1.setBounds(489, 80, 285, 54);
 		contentPane.add(lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1);
 		
-		JLabel lblNewLabel_TituloMensajesEnviados_1 = new JLabel("(Ver Informacion Del Mensaje Al Seleccionarlo Y/O Eliminarlo)");
+		JLabel lblNewLabel_TituloMensajesEnviados_1 = new JLabel("(Ver Informacion Del Mensaje Al Seleccionarlo)");
 		lblNewLabel_TituloMensajesEnviados_1.setForeground(Color.WHITE);
 		lblNewLabel_TituloMensajesEnviados_1.setFont(new Font("Trebuchet MS", Font.PLAIN, 12));
 		lblNewLabel_TituloMensajesEnviados_1.setBounds(957, 80, 285, 54);
