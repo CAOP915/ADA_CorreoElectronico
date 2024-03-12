@@ -157,6 +157,7 @@ public class CorreoElectronico_GUI extends JFrame {
 			} else {
 					    // Si el usuario selecciona "No" o cierra el cuadro de diálogo, no se hace nada.
 				}
+			btnNewButton_DespacharMensaje.setEnabled(false); //Desactivar el boton de btnNewButton_DespacharMensaje.
 			}
 		});
 		btnNewButton_DespacharMensaje.setForeground(Color.WHITE);
