@@ -26,9 +26,13 @@ import javax.swing.DefaultListModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CorreoElectronico_GUI extends JFrame {
 
+	//Carlos por favor podrias cambiar el nombre del botón que dice Despachar Mensaje Seleccionado a 
+	//Despachar mensajes, creo que queda mejor ya que se envían todos lo mensajes. 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_Asunto;
@@ -120,6 +124,14 @@ public class CorreoElectronico_GUI extends JFrame {
 		contentPane.add(lblNewLabel_TituloDeServidorDeImpresionDeMensajes);
 		
 		JList list_Despachar = new JList();
+		list_Despachar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//click al mensaje que selecciones y se abre para ver mensaje completo
+				String seleccionado = list_Despachar.getSelectedValue().toString();
+				JOptionPane.showMessageDialog(null, seleccionado);
+			}
+		});
 		
 		//JScrollPane Jlist_Despachar
 		JScrollPane scroll1 = new JScrollPane (list_Despachar, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -139,6 +151,14 @@ public class CorreoElectronico_GUI extends JFrame {
 		contentPane.add(lblNewLabel_TituloMensajesEnviados);
 		
 		JList list_Enviados = new JList();
+		list_Enviados.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//click al mensaje que selecciones y se abre para ver mensaje completo
+				String seleccionado = list_Despachar.getSelectedValue().toString();
+				JOptionPane.showMessageDialog(null, seleccionado);
+			}
+		});
 		
 		//JScrollPane Jlist_Enviados
 		JScrollPane scroll2 = new JScrollPane (list_Enviados, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -211,23 +231,56 @@ public class CorreoElectronico_GUI extends JFrame {
 		JButton btnNewButton_EnviarMensaje = new JButton("Enviar Mensaje");
 		btnNewButton_EnviarMensaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+			//Creacion de rama de nallely
+				
+				String Emisor = textField_Emisor.getText();
+				String Receptor = textField_Receptor.getText();
+				String Asunto = textField_Asunto.getText();
+				String Mensaje = textArea_EscribirMensaje.getText();
+				
+				int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas enviar el mensaje?", "Confirma enviar mensaje", JOptionPane.YES_NO_OPTION);
+
+				if (opcion == JOptionPane.YES_OPTION) {
+					
+				
 				if (rdbtnNewRadioButton_TipoDeMensajePersonal.isSelected()) {
 					int tipoDeMensajeOrden= 1;
 					String tipoDeMensajeSeleccionado = ("Personal");
+					
+					cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
+					model.clear(); // se limpia el modelo de lista
+					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
+					list_Despachar.setModel(model);//lo mando a la otra pantalla
 				}
-				
+			
 				if (rdbtnNewRadioButton_TipoDeMensajeTrabajo.isSelected()) {
 					int tipoDeMensajeOrden= 2;
 					String tipoDeMensajeSeleccionado = ("Trabajo");	
+					
+					cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
+					model.clear(); // se limpia el modelo de lista
+					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
+					list_Despachar.setModel(model);//lo mando al otra pantalla
+					
 				}
 				
 				if (rdbtnNewRadioButton_TipoDeMensajeOtroTipo.isSelected()) {
 					int tipoDeMensajeOrden= 3;
 					String tipoDeMensajeSeleccionado = ("Otro Tipo");
-				}	
-			}
-		});
+					
+					cola.add(new CorreoElectronico ( Emisor, Receptor, Asunto, Mensaje, tipoDeMensajeOrden));
+					model.clear(); // se limpia el modelo de lista
+					cola.forEach(model::addElement); //para cada elemento de la cola se añade al modelo el elemento
+					list_Despachar.setModel(model);
+				}
+			
+				
+			    } else {
+					//se presiona la opcion "NO".
+				}
+		
+				
+			}});
 		
 		JLabel lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1 = new JLabel("(Ver Informacion Del Mensaje Al Seleccionarlo)");
 		lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1.setForeground(Color.WHITE);
