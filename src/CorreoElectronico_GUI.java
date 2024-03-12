@@ -40,7 +40,6 @@ public class CorreoElectronico_GUI extends JFrame {
 	DefaultListModel model = new DefaultListModel();
 	
 	
-	
 	/**
 	 * Launch the application.
 	 */
