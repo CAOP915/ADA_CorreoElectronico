@@ -129,6 +129,15 @@ public class CorreoElectronico_GUI extends JFrame {
 		contentPane.add(scroll1);
 	
 		JButton btnNewButton_DespacharMensaje = new JButton("Despachar Mensaje");
+		btnNewButton_DespacharMensaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		//Si es NO, señalar lo siguiente: 
+		JOptionPane.showMessageDialog(null, "Usted ha elegido la opción que No");
+				
+			
+			
+			}
+		});
 		btnNewButton_DespacharMensaje.setForeground(Color.WHITE);
 		btnNewButton_DespacharMensaje.setBackground(new Color(0, 0, 205));
 		btnNewButton_DespacharMensaje.setBounds(501, 589, 247, 35);
@@ -149,6 +158,12 @@ public class CorreoElectronico_GUI extends JFrame {
 		
 		
 		JButton btnNewButton_EliminarMensaje = new JButton("Eliminar Mensajes");
+		btnNewButton_EliminarMensaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Si es NO, señalar lo siguiente: 
+				JOptionPane.showMessageDialog(null, "Usted ha elegido la opción que No");
+			}
+		});
 		btnNewButton_EliminarMensaje.setForeground(Color.WHITE);
 		btnNewButton_EliminarMensaje.setBackground(new Color(0, 0, 205));
 		btnNewButton_EliminarMensaje.setBounds(980, 592, 226, 35);
@@ -213,7 +228,8 @@ public class CorreoElectronico_GUI extends JFrame {
 		JButton btnNewButton_EnviarMensaje = new JButton("Enviar Mensaje");
 		btnNewButton_EnviarMensaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+				//Si es NO, señalar lo siguiente: 
+				JOptionPane.showMessageDialog(null, "Usted ha elegido la opción que No");
 				if (rdbtnNewRadioButton_TipoDeMensajePersonal.isSelected()) {
 					int tipoDeMensajeOrden= 1;
 					String tipoDeMensajeSeleccionado = ("Personal");
