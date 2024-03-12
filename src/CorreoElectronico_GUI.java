@@ -43,6 +43,8 @@ public class CorreoElectronico_GUI extends JFrame {
 	Queue<CorreoElectronico> cola =new PriorityQueue<CorreoElectronico>();
 	DefaultListModel model = new DefaultListModel();
 	
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -138,7 +140,16 @@ public class CorreoElectronico_GUI extends JFrame {
 		scroll1.setBounds(428, 116, 386, 462);
 		contentPane.add(scroll1);
 	
-		JButton btnNewButton_DespacharMensaje = new JButton("Despachar Mensaje Seleccionado");
+		JButton btnNewButton_DespacharMensaje = new JButton("Despachar Mensaje");
+		btnNewButton_DespacharMensaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		//Si es NO, se�alar lo siguiente: 
+		JOptionPane.showMessageDialog(null, "Usted ha elegido la opci�n que No");
+				
+			
+			
+			}
+		});
 		btnNewButton_DespacharMensaje.setForeground(Color.WHITE);
 		btnNewButton_DespacharMensaje.setBackground(new Color(0, 0, 205));
 		btnNewButton_DespacharMensaje.setBounds(501, 589, 247, 35);
@@ -166,7 +177,13 @@ public class CorreoElectronico_GUI extends JFrame {
 		contentPane.add(scroll2);
 		
 		
-		JButton btnNewButton_EliminarMensaje = new JButton("Eliminar Mensaje Seleccionado");
+		JButton btnNewButton_EliminarMensaje = new JButton("Eliminar Mensajes");
+		btnNewButton_EliminarMensaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Si es NO, se�alar lo siguiente: 
+				JOptionPane.showMessageDialog(null, "Usted ha elegido la opci�n que No");
+			}
+		});
 		btnNewButton_EliminarMensaje.setForeground(Color.WHITE);
 		btnNewButton_EliminarMensaje.setBackground(new Color(0, 0, 205));
 		btnNewButton_EliminarMensaje.setBounds(980, 592, 226, 35);
@@ -231,6 +248,10 @@ public class CorreoElectronico_GUI extends JFrame {
 		JButton btnNewButton_EnviarMensaje = new JButton("Enviar Mensaje");
 		btnNewButton_EnviarMensaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+//<<<<<<< RAMA_CARLOS
+				//Si es NO, se�alar lo siguiente: 
+				JOptionPane.showMessageDialog(null, "Usted ha elegido la opci�n que No");
+//=======
 			//Creacion de rama de nallely
 				
 				String Emisor = textField_Emisor.getText();
@@ -243,6 +264,7 @@ public class CorreoElectronico_GUI extends JFrame {
 				if (opcion == JOptionPane.YES_OPTION) {
 					
 				
+//>>>>>>> master
 				if (rdbtnNewRadioButton_TipoDeMensajePersonal.isSelected()) {
 					int tipoDeMensajeOrden= 1;
 					String tipoDeMensajeSeleccionado = ("Personal");
@@ -288,7 +310,7 @@ public class CorreoElectronico_GUI extends JFrame {
 		lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1.setBounds(489, 80, 285, 54);
 		contentPane.add(lblNewLabel_TituloDeServidorDeImpresionDeMensajes_1);
 		
-		JLabel lblNewLabel_TituloMensajesEnviados_1 = new JLabel("(Ver Informacion Del Mensaje Al Seleccionarlo)");
+		JLabel lblNewLabel_TituloMensajesEnviados_1 = new JLabel("(Ver Informacion Del Mensaje Al Seleccionarlo Y/O Eliminarlo)");
 		lblNewLabel_TituloMensajesEnviados_1.setForeground(Color.WHITE);
 		lblNewLabel_TituloMensajesEnviados_1.setFont(new Font("Trebuchet MS", Font.PLAIN, 12));
 		lblNewLabel_TituloMensajesEnviados_1.setBounds(957, 80, 285, 54);
